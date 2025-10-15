@@ -46,7 +46,7 @@ function setupLogoModel() {
             }
         });
 
-        // Behåll den stora storleken
+        // Dina senaste storleksändringar
         loadedModel.scale.set(3150, 3150, 3150);
         loadedModel.position.set(0, 0, 0);
         
@@ -80,18 +80,17 @@ function setupLogoModel() {
  * ======================================================================
  */
 function setupFirstModel() {
-    // Variabler som bara gäller för denna modell
     const SENSITIVITY = 0.5;
-    // <<< Minskad höjd för mindre avstånd till texten under >>>
     const VIEW_HEIGHT = 600;
     let isDragging = false;
     let loadedModel, renderer, camera, scene, canvasElement;
+    // Variabler för att hantera touch-scrollning
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    // Hämta rätt behållare
     const holder = document.getElementById('canvas-holder');
     if (!holder) return;
 
-    // Din ursprungliga kod för att sätta upp scenen
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / VIEW_HEIGHT, 0.01, 20000);
     camera.position.z = 500;
@@ -119,9 +118,8 @@ function setupFirstModel() {
             }
         });
         
-        // <<< Ökad storlek på modellen >>>
+        // Dina senaste justeringar för skala och position
         loadedModel.scale.set(1700, 1400, 1600);
-        // <<< Justerad position för att centrera den större modellen >>>
         loadedModel.position.set(0, -230, 0);
         loadedModel.rotation.y = Math.PI / -7;
         setupEventListeners();
@@ -147,10 +145,29 @@ function setupFirstModel() {
         canvasElement.addEventListener('mousedown', () => { isDragging = true; });
         document.addEventListener('mouseup', () => { isDragging = false; });
         canvasElement.addEventListener('mousemove', handleRotationEvent);
-        canvasElement.addEventListener('touchstart', (e)=>{ e.preventDefault(); isDragging=true; handleRotationEvent(e); }, {passive:false});
+
+        // <<< HÄR ÄR DEN UPPDATERADE TOUCH-LOGIKEN >>>
+        canvasElement.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
         document.addEventListener('touchend', () => { isDragging = false; });
-        document.addEventListener('touchmove', (e)=>{ e.preventDefault(); handleRotationEvent(e); }, {passive:false});
-        window.addEventListener('resize', ()=>{
+        
+        canvasElement.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const touchCurrentX = e.touches[0].clientX;
+            const touchCurrentY = e.touches[0].clientY;
+            const deltaX = Math.abs(touchStartX - touchCurrentX);
+            const deltaY = Math.abs(touchStartY - touchCurrentY);
+            if (deltaX > deltaY) {
+                e.preventDefault();
+                handleRotationEvent(e);
+            }
+        }, { passive: false });
+
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / VIEW_HEIGHT;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, VIEW_HEIGHT);
@@ -165,13 +182,14 @@ function setupFirstModel() {
  * ======================================================================
  */
 function setupSecondModel() {
-    // Variabler som bara gäller för denna modell
     const SENSITIVITY = 0.5;
-    const VIEW_HEIGHT = 600; // Kan ha en annan höjd
+    const VIEW_HEIGHT = 600;
     let isDragging = false;
     let loadedModel, renderer, camera, scene, canvasElement;
+    // Variabler för att hantera touch-scrollning
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-    // Hämta den ANDRA behållaren
     const holder = document.getElementById('canvas-holder-2');
     if (!holder) return;
 
@@ -212,7 +230,6 @@ function setupSecondModel() {
         animate();
     });
 
-    // Samma hjälpfunktioner som förut, men de är lokala för denna modell
     function animate() {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
@@ -232,10 +249,29 @@ function setupSecondModel() {
         canvasElement.addEventListener('mousedown', () => { isDragging = true; });
         document.addEventListener('mouseup', () => { isDragging = false; });
         canvasElement.addEventListener('mousemove', handleRotationEvent);
-        canvasElement.addEventListener('touchstart', (e)=>{ e.preventDefault(); isDragging=true; handleRotationEvent(e); }, {passive:false});
+        
+        // <<< HÄR ÄR DEN UPPDATERADE TOUCH-LOGIKEN >>>
+        canvasElement.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
         document.addEventListener('touchend', () => { isDragging = false; });
-        document.addEventListener('touchmove', (e)=>{ e.preventDefault(); handleRotationEvent(e); }, {passive:false});
-        window.addEventListener('resize', ()=>{
+        
+        canvasElement.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const touchCurrentX = e.touches[0].clientX;
+            const touchCurrentY = e.touches[0].clientY;
+            const deltaX = Math.abs(touchStartX - touchCurrentX);
+            const deltaY = Math.abs(touchStartY - touchCurrentY);
+            if (deltaX > deltaY) {
+                e.preventDefault();
+                handleRotationEvent(e);
+            }
+        }, { passive: false });
+
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / VIEW_HEIGHT;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, VIEW_HEIGHT);
