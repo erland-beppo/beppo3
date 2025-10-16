@@ -3,8 +3,17 @@ body {
     padding: 0; 
     background-color: #8cffe0; 
     font-family: 'Courier New', Courier, monospace;
-    /* <<< Minskade från 200px för mindre avstånd >>> */
-    padding-top: 150px; 
+}
+
+/* ==========================================================
+   NY HUVUDBEHÅLLARE
+   ========================================================== */
+.page-container {
+    /* <<< HÄR ÄR ÄNDRINGEN: Smalare maxbredd >>> */
+    max-width: 1100px; 
+    margin: 0 auto;
+    position: relative;
+    padding-top: 200px;
 }
 
 #logo-holder {
@@ -17,21 +26,20 @@ body {
     pointer-events: none;
 }
 
-#canvas-holder {
-    width: 100vw;
-    height: 600px;
+#canvas-holder, #canvas-holder-2 {
+    width: 100%; 
     position: relative;
-    /* <<< Tog bort extra marginal för tajtare passform >>> */
-    margin-top: 0; 
     z-index: 1;
 }
 
+#canvas-holder {
+    height: 600px;
+    margin-top: 0;
+}
+
 #canvas-holder-2 {
-    width: 100vw;
     height: 400px;
-    position: relative;
     margin-top: 20px;
-    z-index: 1;
 }
 
 h1 { 
