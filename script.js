@@ -92,17 +92,20 @@ function setupFirstModel() {
     if (!holder) return;
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / VIEW_HEIGHT, 0.01, 20000);
+    // <<< ANVÄNDER BEHÅLLARENS BREDD ISTÄLLET FÖR FÖNSTRETS >>>
+    camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
     camera.position.z = 500;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
-    renderer.setSize(window.innerWidth, VIEW_HEIGHT);
+    // <<< ANVÄNDER BEHÅLLARENS BREDD ISTÄLLET FÖR FÖNSTRETS >>>
+    renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
     canvasElement = renderer.domElement;
     holder.appendChild(canvasElement);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    // <<< HÄR ÄR ÄNDRINGEN: Justerad ljussättning för mer kontrast >>>
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Svagare grundljus
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5); // Starkare riktat ljus
     directionalLight.position.set(8, 8, 8).normalize();
     scene.add(directionalLight);
 
@@ -112,13 +115,18 @@ function setupFirstModel() {
         scene.add(loadedModel);
         loadedModel.traverse((child) => {
             if (child.isMesh) {
-                const newMaterial = child.material.clone();
-                newMaterial.color.setHex(0xfc49ae); // Rosa färg
+                // <<< HÄR ÄR ÄNDRINGEN: Tillbaka till ett material som tar emot ljus >>>
+                const newMaterial = child.material.clone(); // Använder ett ljuskänsligt material
+                
+                // Justera egenskaperna för att få en matt och intensiv färg
+                newMaterial.color.setHex(0xF81894); // Samma intensiva rosa
+                newMaterial.metalness = 0.1;       // Nästan ingen metallglans
+                newMaterial.roughness = 0.9;       // En matt yta
+
                 child.material = newMaterial;
             }
         });
         
-        // Dina senaste justeringar för skala och position
         loadedModel.scale.set(1700, 1400, 1600);
         loadedModel.position.set(0, -230, 0);
         loadedModel.rotation.y = Math.PI / -7;
@@ -128,6 +136,10 @@ function setupFirstModel() {
 
     function animate() {
         requestAnimationFrame(animate);
+        // <<< NYTT TILLÄGG: Långsam rotation när användaren inte interagerar >>>
+        if (loadedModel && !isDragging) {
+            loadedModel.rotation.y += 0.002;
+        }
         renderer.render(scene, camera);
     }
 
@@ -135,7 +147,8 @@ function setupFirstModel() {
         if (!loadedModel || !isDragging) return;
         const clientX = event.touches ? event.touches[0].clientX : event.clientX;
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-        const xNormalized = (clientX / window.innerWidth) - 0.5;
+        // <<< ANVÄNDER BEHÅLLARENS BREDD FÖR KORREKT ROTATION >>>
+        const xNormalized = ((clientX - holder.getBoundingClientRect().left) / holder.clientWidth) - 0.5;
         const yNormalized = (clientY / VIEW_HEIGHT) - 0.5;
         loadedModel.rotation.y = xNormalized * SENSITIVITY * Math.PI * 2;
         loadedModel.rotation.x = yNormalized * SENSITIVITY * Math.PI * 2;
@@ -146,7 +159,6 @@ function setupFirstModel() {
         document.addEventListener('mouseup', () => { isDragging = false; });
         canvasElement.addEventListener('mousemove', handleRotationEvent);
 
-        // <<< HÄR ÄR DEN UPPDATERADE TOUCH-LOGIKEN >>>
         canvasElement.addEventListener('touchstart', (e) => {
             isDragging = true;
             touchStartX = e.touches[0].clientX;
@@ -168,9 +180,10 @@ function setupFirstModel() {
         }, { passive: false });
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / VIEW_HEIGHT;
+            // <<< UPPDATERAR MED BEHÅLLARENS BREDD >>>
+            camera.aspect = holder.clientWidth / VIEW_HEIGHT;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, VIEW_HEIGHT);
+            renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
         }, false);
     }
 }
@@ -186,7 +199,6 @@ function setupSecondModel() {
     const VIEW_HEIGHT = 600;
     let isDragging = false;
     let loadedModel, renderer, camera, scene, canvasElement;
-    // Variabler för att hantera touch-scrollning
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -194,11 +206,11 @@ function setupSecondModel() {
     if (!holder) return;
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / VIEW_HEIGHT, 0.01, 20000);
-    camera.position.z = 200;
+    camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
+    camera.position.z = 300;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
-    renderer.setSize(window.innerWidth, VIEW_HEIGHT);
+    renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
     canvasElement = renderer.domElement;
     holder.appendChild(canvasElement);
 
@@ -220,8 +232,9 @@ function setupSecondModel() {
             }
         });
         
-        loadedModel.scale.set(1500, 1500, 1500); 
-        loadedModel.position.set(0, 60, 0); 
+        // <<< HÄR ÄR ÄNDRINGARNA: Ökad storlek och höjd >>>
+        loadedModel.scale.set(2300, 2300, 2300); 
+        loadedModel.position.set(0, 50, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
         loadedModel.rotation.y = (Math.PI / 8) - (Math.PI / 2);
@@ -232,6 +245,10 @@ function setupSecondModel() {
 
     function animate() {
         requestAnimationFrame(animate);
+        // <<< NYTT TILLÄGG: Långsam rotation när användaren inte interagerar >>>
+        if (loadedModel && !isDragging) {
+            loadedModel.rotation.y += 0.002;
+        }
         renderer.render(scene, camera);
     }
     
@@ -239,7 +256,7 @@ function setupSecondModel() {
         if (!loadedModel || !isDragging) return;
         const clientX = event.touches ? event.touches[0].clientX : event.clientX;
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-        const xNormalized = (clientX / window.innerWidth) - 0.5;
+        const xNormalized = ((clientX - holder.getBoundingClientRect().left) / holder.clientWidth) - 0.5;
         const yNormalized = (clientY / VIEW_HEIGHT) - 0.5;
         loadedModel.rotation.y = xNormalized * SENSITIVITY * Math.PI * 2;
         loadedModel.rotation.x = yNormalized * SENSITIVITY * Math.PI * 2;
@@ -250,7 +267,6 @@ function setupSecondModel() {
         document.addEventListener('mouseup', () => { isDragging = false; });
         canvasElement.addEventListener('mousemove', handleRotationEvent);
         
-        // <<< HÄR ÄR DEN UPPDATERADE TOUCH-LOGIKEN >>>
         canvasElement.addEventListener('touchstart', (e) => {
             isDragging = true;
             touchStartX = e.touches[0].clientX;
@@ -272,9 +288,9 @@ function setupSecondModel() {
         }, { passive: false });
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / VIEW_HEIGHT;
+            camera.aspect = holder.clientWidth / VIEW_HEIGHT;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, VIEW_HEIGHT);
+            renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
         }, false);
     }
 }

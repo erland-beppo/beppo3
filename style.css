@@ -3,28 +3,42 @@ body {
     padding: 0; 
     background-color: #8cffe0; 
     font-family: 'Courier New', Courier, monospace;
+    /* <<< HÄR ÄR FIXEN: Förhindrar horisontell scroll >>> */
+    overflow-x: hidden;
 }
 
-/* ==========================================================
-   NY HUVUDBEHÅLLARE
-   ========================================================== */
 .page-container {
-    /* <<< HÄR ÄR ÄNDRINGEN: Smalare maxbredd >>> */
     max-width: 1100px; 
     margin: 0 auto;
     position: relative;
     padding-top: 200px;
 }
 
+/* ==========================================================
+   NY HJÄLPKLASS FÖR CENTRERAT INNEHÅLL
+   ========================================================== */
+.content-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 25px; /* Samma sidomarginal som andra sektioner */
+}
+
+
 #logo-holder {
     width: 250px;
     height: 200px;
     position: absolute; 
     top: 10px;
-    left: 10px;
-    z-index: 100;
-    pointer-events: none;
+    /* Justerad för att linjera med innehållet */
+    left: calc(50% - 550px);
 }
+
+@media (max-width: 1150px) {
+    #logo-holder {
+        left: 25px; /* Fallback för smalare skärmar */
+    }
+}
+
 
 #canvas-holder, #canvas-holder-2 {
     width: 100%; 
@@ -117,7 +131,7 @@ h1 {
 }
 
 .location-section {
-    padding: 0;
+    padding: 40px 0 0 0; /* Ger lite utrymme ovanför */
 }
 
 .location-section h2 {
@@ -125,7 +139,7 @@ h1 {
     font-weight: 300;
     margin-bottom: 30px;
     text-align: left;
-    padding-left: 25px;
+    padding-left: 0; /* Tar bort gammal padding */
 }
 
 .map-container {
@@ -149,7 +163,7 @@ h1 {
 
 footer {
     text-align: center;
-    padding: 20px 25px 40px 25px;
+    padding: 20px 0 40px 0; /* Tar bort sidopadding */
     margin-top: 0;
     background-color: #2190ff;
     color: #ffffff;
