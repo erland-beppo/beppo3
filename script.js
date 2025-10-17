@@ -16,8 +16,8 @@ function setupLogoModel() {
     // Sätt upp scenen
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / holder.clientHeight, 0.1, 1000);
-    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort för att undvika klippning >>>
-    camera.position.z = 650; 
+    // <<< HÄR ÄR ÄNDRINGEN: Kameran längre bort för att rymma större logga >>>
+    camera.position.z = 750; 
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
@@ -47,8 +47,8 @@ function setupLogoModel() {
             }
         });
 
-        // <<< HÄR ÄR ÄNDRINGEN: Gör loggan större >>>
-        loadedModel.scale.set(4000, 4000, 4000);
+        // <<< HÄR ÄR ÄNDRINGEN: Gör loggan ännu större >>>
+        loadedModel.scale.set(4500, 4500, 4500);
         loadedModel.position.set(0, 0, 0);
         
         // Behåll startpositionen uppifrån
@@ -115,9 +115,9 @@ function setupFirstModel() {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
                 
-                newMaterial.color.setHex(0xF81894);
+                // <<< HÄR ÄR ÄNDRINGEN: Mjukare rosa nyans >>>
+                newMaterial.color.setHex(0xFA8072);
                 newMaterial.metalness = 0.1;
-                // <<< HÄR ÄR ÄNDRINGEN: Gör ytan helt matt >>>
                 newMaterial.roughness = 1.0;
 
                 child.material = newMaterial;
@@ -221,15 +221,18 @@ function setupSecondModel() {
         loadedModel.traverse((child) => {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
-                newMaterial.color.setHex(0x498AFC); // Blå färg
+                // <<< HÄR ÄR ÄNDRINGEN: Mer intensiv blå färg >>>
+                newMaterial.color.setHex(0x00BFFF);
                 newMaterial.transparent = true;
-                newMaterial.opacity = 0.75; // 75% synlighet
+                // <<< HÄR ÄR ÄNDRINGEN: Mindre genomskinlig för mer "pop" >>>
+                newMaterial.opacity = 0.9;
                 child.material = newMaterial;
             }
         });
         
         loadedModel.scale.set(2800, 2800, 2800); 
-        loadedModel.position.set(0, 50, 0); 
+        // <<< HÄR ÄR ÄNDRINGEN: Flyttar upp modellen ytterligare >>>
+        loadedModel.position.set(0, 100, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
         loadedModel.rotation.y = (Math.PI / 8) - (Math.PI / 2);
@@ -269,7 +272,7 @@ function setupSecondModel() {
         
         document.addEventListener('touchend', () => { isDragging = false; });
         
-        canvasElement.addEventListener('touchmove', (e) => {
+        document.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             const touchCurrentX = e.touches[0].clientX;
             const touchCurrentY = e.touches[0].clientY;
