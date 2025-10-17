@@ -116,7 +116,7 @@ function setupFirstModel() {
                 const newMaterial = child.material.clone();
                 
                 // <<< HÄR ÄR ÄNDRINGEN: Mjukare rosa nyans >>>
-                newMaterial.color.setHex(0xfc6cd3);
+                newMaterial.color.setHex(0xFA8072);
                 newMaterial.metalness = 0.1;
                 newMaterial.roughness = 1.0;
 
@@ -201,7 +201,8 @@ function setupSecondModel() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
-    camera.position.z = 400;
+    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort >>>
+    camera.position.z = 600;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
@@ -221,17 +222,15 @@ function setupSecondModel() {
         loadedModel.traverse((child) => {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
-                // <<< HÄR ÄR ÄNDRINGEN: Mer intensiv blå färg >>>
                 newMaterial.color.setHex(0x00BFFF);
                 newMaterial.transparent = true;
-                // <<< HÄR ÄR ÄNDRINGEN: Mindre genomskinlig för mer "pop" >>>
                 newMaterial.opacity = 0.9;
                 child.material = newMaterial;
             }
         });
         
-        loadedModel.scale.set(2800, 2800, 2800); 
-        // <<< HÄR ÄR ÄNDRINGEN: Flyttar upp modellen ytterligare >>>
+        // <<< HÄR ÄR ÄNDRINGEN: Gör modellen mycket större >>>
+        loadedModel.scale.set(4000, 4000, 4000); 
         loadedModel.position.set(0, 100, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
