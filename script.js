@@ -16,7 +16,7 @@ function setupLogoModel() {
     // Sätt upp scenen
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / holder.clientHeight, 0.1, 10000); 
-    camera.position.z = 750; 
+    camera.position.z = 1500; 
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
@@ -46,7 +46,7 @@ function setupLogoModel() {
             }
         });
 
-        loadedModel.scale.set(4500, 4500, 4500);
+        loadedModel.scale.set(9000, 9000, 9000);
         loadedModel.position.set(0, 0, 0);
         
         // Behåll startpositionen uppifrån
@@ -113,7 +113,6 @@ function setupFirstModel() {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
                 
-                // <<< HÄR ÄR ÄNDRINGEN: Ny, dämpad rosa färg >>>
                 newMaterial.color.setHex(0xf282d2);
                 newMaterial.metalness = 0.1;
                 newMaterial.roughness = 1.0;
@@ -199,8 +198,8 @@ function setupSecondModel() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
-    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort för att förhindra klippning >>>
-    camera.position.z = 700;
+    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort >>>
+    camera.position.z = 1400;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
@@ -227,7 +226,8 @@ function setupSecondModel() {
             }
         });
         
-        loadedModel.scale.set(4000, 4000, 4000); 
+        // <<< HÄR ÄR ÄNDRINGEN: Dubblar storleken på modellen >>>
+        loadedModel.scale.set(8000, 8000, 8000); 
         loadedModel.position.set(0, 100, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
