@@ -198,8 +198,8 @@ function setupSecondModel() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
-    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort >>>
-    camera.position.z = 2000;
+    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort för den dubbelt så stora modellen >>>
+    camera.position.z = 4000;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
@@ -219,12 +219,12 @@ function setupSecondModel() {
         loadedModel.traverse((child) => {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
-                const popColor = new THREE.Color(0x00BFFF); // Den blå färgen
+                const popColor = new THREE.Color(0x00BFFF); 
                 
                 newMaterial.color.set(popColor);
-                // <<< HÄR ÄR ÄNDRINGEN: Får färgen att lysa och "poppa" >>>
                 newMaterial.emissive.set(popColor);
-                newMaterial.emissiveIntensity = 0.5; // Justera styrkan på "glöden"
+                // <<< HÄR ÄR ÄNDRINGEN: Minskar "glöden" för en djupare färg >>>
+                newMaterial.emissiveIntensity = 0.2; 
 
                 newMaterial.transparent = true;
                 newMaterial.opacity = 0.9;
@@ -232,8 +232,8 @@ function setupSecondModel() {
             }
         });
         
-        // <<< HÄR ÄR ÄNDRINGEN: Gör modellen mycket större >>>
-        loadedModel.scale.set(12000, 12000, 12000); 
+        // <<< HÄR ÄR ÄNDRINGEN: Dubblar storleken på modellen >>>
+        loadedModel.scale.set(24000, 24000, 24000); 
         loadedModel.position.set(0, 100, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
