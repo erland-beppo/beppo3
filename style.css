@@ -9,7 +9,6 @@ body {
     max-width: 1100px; 
     margin: 0 auto;
     position: relative;
-    /* <<< HÄR ÄR ÄNDRINGEN: Minskar utrymmet upptill >>> */
     padding-top: 80px;
 }
 
@@ -17,7 +16,6 @@ body {
     width: 250px;
     height: 200px;
     position: absolute; 
-    /* <<< HÄR ÄR ÄNDRINGEN: Justerar loggans position >>> */
     top: 80px;
     left: 10px;
     z-index: 100;
@@ -66,7 +64,8 @@ h1 {
 .team-section h2 {
     font-size: 1.7em;
     font-weight: 300;
-    margin-bottom: 30px;
+    /* <<< HÄR ÄR ÄNDRINGEN: Ökar avståndet under rubriken >>> */
+    margin-bottom: 50px; 
     text-align: left;
 }
 
