@@ -219,7 +219,7 @@ function setupSecondModel() {
         loadedModel.traverse((child) => {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
-                newMaterial.color.setHex(0x00BFFF);
+                newMaterial.color.setHex(0x0037ff);
                 newMaterial.transparent = true;
                 newMaterial.opacity = 0.9;
                 child.material = newMaterial;
