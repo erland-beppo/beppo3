@@ -9,15 +9,16 @@ body {
     max-width: 1100px; 
     margin: 0 auto;
     position: relative;
-    /* <<< HÄR ÄR ÄNDRINGEN: Minskar utrymmet upptill ytterligare >>> */
-    padding-top: 50px;
+    /* <<< HÄR ÄR ÄNDRINGEN: Minskar utrymmet upptill >>> */
+    padding-top: 80px;
 }
 
 #logo-holder {
     width: 250px;
     height: 200px;
     position: absolute; 
-    top: 150px;
+    /* <<< HÄR ÄR ÄNDRINGEN: Justerar loggans position >>> */
+    top: 80px;
     left: 10px;
     z-index: 100;
     pointer-events: none;
