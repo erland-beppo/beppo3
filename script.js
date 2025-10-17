@@ -207,7 +207,8 @@ function setupSecondModel() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
-    camera.position.z = 300;
+    // <<< HÄR ÄR ÄNDRING 1: Flyttar kameran längre bort >>>
+    camera.position.z = 400;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
@@ -228,12 +229,15 @@ function setupSecondModel() {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
                 newMaterial.color.setHex(0x498AFC); // Blå färg
+                // <<< HÄR ÄR ÄNDRING 3: Gör materialet transparent >>>
+                newMaterial.transparent = true;
+                newMaterial.opacity = 0.75; // 75% synlighet
                 child.material = newMaterial;
             }
         });
         
-        // <<< HÄR ÄR ÄNDRINGARNA: Ökad storlek och höjd >>>
-        loadedModel.scale.set(2300, 2300, 2300); 
+        // <<< HÄR ÄR ÄNDRING 2: Ökar storleken på modellen >>>
+        loadedModel.scale.set(2800, 2800, 2800); 
         loadedModel.position.set(0, 50, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
@@ -245,7 +249,6 @@ function setupSecondModel() {
 
     function animate() {
         requestAnimationFrame(animate);
-        // <<< NYTT TILLÄGG: Långsam rotation när användaren inte interagerar >>>
         if (loadedModel && !isDragging) {
             loadedModel.rotation.y += 0.002;
         }
