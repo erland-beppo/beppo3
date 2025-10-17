@@ -15,8 +15,8 @@ function setupLogoModel() {
 
     // Sätt upp scenen
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, holder.clientWidth / holder.clientHeight, 0.1, 1000);
-    // <<< HÄR ÄR ÄNDRINGEN: Kameran längre bort för att rymma större logga >>>
+    // <<< HÄR ÄR ÄNDRINGEN: Ökar kamerans maximala synavstånd (far clipping plane) >>>
+    camera = new THREE.PerspectiveCamera(75, holder.clientWidth / holder.clientHeight, 0.1, 10000); 
     camera.position.z = 750; 
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -116,7 +116,7 @@ function setupFirstModel() {
                 const newMaterial = child.material.clone();
                 
                 // <<< HÄR ÄR ÄNDRINGEN: Mjukare rosa nyans >>>
-                newMaterial.color.setHex(0xff5ed1);
+                newMaterial.color.setHex(0xFA8072);
                 newMaterial.metalness = 0.1;
                 newMaterial.roughness = 1.0;
 
