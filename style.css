@@ -10,7 +10,7 @@ body {
     margin: 0 auto;
     position: relative;
     /* <<< HÄR ÄR ÄNDRINGEN: Mer utrymme upptill för den nedflyttade loggan >>> */
-    padding-top: 400px;
+    padding-top: 800px;
 }
 
 #logo-holder {
