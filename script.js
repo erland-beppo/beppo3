@@ -15,7 +15,6 @@ function setupLogoModel() {
 
     // Sätt upp scenen
     scene = new THREE.Scene();
-    // <<< HÄR ÄR ÄNDRINGEN: Ökar kamerans maximala synavstånd (far clipping plane) >>>
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / holder.clientHeight, 0.1, 10000); 
     camera.position.z = 750; 
 
@@ -47,7 +46,6 @@ function setupLogoModel() {
             }
         });
 
-        // <<< HÄR ÄR ÄNDRINGEN: Gör loggan ännu större >>>
         loadedModel.scale.set(4500, 4500, 4500);
         loadedModel.position.set(0, 0, 0);
         
@@ -115,7 +113,7 @@ function setupFirstModel() {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
                 
-                // <<< HÄR ÄR ÄNDRINGEN: Mjukare rosa nyans >>>
+                // <<< HÄR ÄR ÄNDRINGEN: Ny, dämpad rosa färg >>>
                 newMaterial.color.setHex(0xf282d2);
                 newMaterial.metalness = 0.1;
                 newMaterial.roughness = 1.0;
@@ -201,8 +199,8 @@ function setupSecondModel() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
-    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort >>>
-    camera.position.z = 850;
+    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort för att förhindra klippning >>>
+    camera.position.z = 700;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
@@ -229,8 +227,7 @@ function setupSecondModel() {
             }
         });
         
-        // <<< HÄR ÄR ÄNDRINGEN: Gör modellen mycket större >>>
-        loadedModel.scale.set(5000, 5000, 5000); 
+        loadedModel.scale.set(4000, 4000, 4000); 
         loadedModel.position.set(0, 100, 0); 
         
         loadedModel.rotation.x = Math.PI / 2;
