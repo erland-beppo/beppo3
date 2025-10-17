@@ -116,7 +116,7 @@ function setupFirstModel() {
                 const newMaterial = child.material.clone();
                 
                 // <<< HÄR ÄR ÄNDRINGEN: Mjukare rosa nyans >>>
-                newMaterial.color.setHex(0xf791da);
+                newMaterial.color.setHex(0xf7aae1);
                 newMaterial.metalness = 0.1;
                 newMaterial.roughness = 1.0;
 
