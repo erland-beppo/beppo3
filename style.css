@@ -10,15 +10,15 @@ body {
     margin: 0 auto;
     position: relative;
     /* <<< HÄR ÄR ÄNDRINGEN: Minskar utrymmet för att flytta upp allt >>> */
-    padding-top: 200px;
+    padding-top: 150px;
 }
 
 #logo-holder {
     width: 250px;
     height: 200px;
     position: absolute; 
-    /* <<< HÄR ÄR ÄNDRINGEN: Flyttar ner loggan så den överlappar nästa sektion >>> */
-    top: 350px;
+    /* <<< HÄR ÄR ÄNDRINGEN: Flyttar upp loggan igen >>> */
+    top: 150px;
     left: 10px;
     z-index: 100;
     pointer-events: none;
