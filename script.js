@@ -202,7 +202,7 @@ function setupSecondModel() {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
     // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort >>>
-    camera.position.z = 800;
+    camera.position.z = 850;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
