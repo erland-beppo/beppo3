@@ -16,7 +16,8 @@ function setupLogoModel() {
     // Sätt upp scenen
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / holder.clientHeight, 0.1, 1000);
-    camera.position.z = 500; 
+    // <<< HÄR ÄR ÄNDRINGEN: Flyttar kameran längre bort för att undvika klippning >>>
+    camera.position.z = 650; 
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
@@ -46,8 +47,8 @@ function setupLogoModel() {
             }
         });
 
-        // Dina senaste storleksändringar
-        loadedModel.scale.set(3150, 3150, 3150);
+        // <<< HÄR ÄR ÄNDRINGEN: Gör loggan större >>>
+        loadedModel.scale.set(4000, 4000, 4000);
         loadedModel.position.set(0, 0, 0);
         
         // Behåll startpositionen uppifrån
@@ -92,20 +93,17 @@ function setupFirstModel() {
     if (!holder) return;
 
     scene = new THREE.Scene();
-    // <<< ANVÄNDER BEHÅLLARENS BREDD ISTÄLLET FÖR FÖNSTRETS >>>
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
     camera.position.z = 500;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
-    // <<< ANVÄNDER BEHÅLLARENS BREDD ISTÄLLET FÖR FÖNSTRETS >>>
     renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
     canvasElement = renderer.domElement;
     holder.appendChild(canvasElement);
 
-    // <<< HÄR ÄR ÄNDRINGEN: Justerad ljussättning för mer kontrast >>>
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Svagare grundljus
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5); // Starkare riktat ljus
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
     directionalLight.position.set(8, 8, 8).normalize();
     scene.add(directionalLight);
 
@@ -115,13 +113,12 @@ function setupFirstModel() {
         scene.add(loadedModel);
         loadedModel.traverse((child) => {
             if (child.isMesh) {
-                // <<< HÄR ÄR ÄNDRINGEN: Tillbaka till ett material som tar emot ljus >>>
-                const newMaterial = child.material.clone(); // Använder ett ljuskänsligt material
+                const newMaterial = child.material.clone();
                 
-                // Justera egenskaperna för att få en matt och intensiv färg
-                newMaterial.color.setHex(0xff92e1); // Samma intensiva rosa
-                newMaterial.metalness = 0.1;       // Nästan ingen metallglans
-                newMaterial.roughness = 0.9;       // En matt yta
+                newMaterial.color.setHex(0xF81894);
+                newMaterial.metalness = 0.1;
+                // <<< HÄR ÄR ÄNDRINGEN: Gör ytan helt matt >>>
+                newMaterial.roughness = 1.0;
 
                 child.material = newMaterial;
             }
@@ -136,7 +133,6 @@ function setupFirstModel() {
 
     function animate() {
         requestAnimationFrame(animate);
-        // <<< NYTT TILLÄGG: Långsam rotation när användaren inte interagerar >>>
         if (loadedModel && !isDragging) {
             loadedModel.rotation.y += 0.002;
         }
@@ -147,7 +143,6 @@ function setupFirstModel() {
         if (!loadedModel || !isDragging) return;
         const clientX = event.touches ? event.touches[0].clientX : event.clientX;
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-        // <<< ANVÄNDER BEHÅLLARENS BREDD FÖR KORREKT ROTATION >>>
         const xNormalized = ((clientX - holder.getBoundingClientRect().left) / holder.clientWidth) - 0.5;
         const yNormalized = (clientY / VIEW_HEIGHT) - 0.5;
         loadedModel.rotation.y = xNormalized * SENSITIVITY * Math.PI * 2;
@@ -180,7 +175,6 @@ function setupFirstModel() {
         }, { passive: false });
 
         window.addEventListener('resize', () => {
-            // <<< UPPDATERAR MED BEHÅLLARENS BREDD >>>
             camera.aspect = holder.clientWidth / VIEW_HEIGHT;
             camera.updateProjectionMatrix();
             renderer.setSize(holder.clientWidth, VIEW_HEIGHT);
@@ -207,7 +201,6 @@ function setupSecondModel() {
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, holder.clientWidth / VIEW_HEIGHT, 0.01, 20000);
-    // <<< HÄR ÄR ÄNDRING 1: Flyttar kameran längre bort >>>
     camera.position.z = 400;
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setClearColor(0x000000, 0);
@@ -229,14 +222,12 @@ function setupSecondModel() {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
                 newMaterial.color.setHex(0x498AFC); // Blå färg
-                // <<< HÄR ÄR ÄNDRING 3: Gör materialet transparent >>>
                 newMaterial.transparent = true;
                 newMaterial.opacity = 0.75; // 75% synlighet
                 child.material = newMaterial;
             }
         });
         
-        // <<< HÄR ÄR ÄNDRING 2: Ökar storleken på modellen >>>
         loadedModel.scale.set(2800, 2800, 2800); 
         loadedModel.position.set(0, 50, 0); 
         
