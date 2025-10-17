@@ -119,7 +119,7 @@ function setupFirstModel() {
                 const newMaterial = child.material.clone(); // Använder ett ljuskänsligt material
                 
                 // Justera egenskaperna för att få en matt och intensiv färg
-                newMaterial.color.setHex(0xF81894); // Samma intensiva rosa
+                newMaterial.color.setHex(0xff92e1); // Samma intensiva rosa
                 newMaterial.metalness = 0.1;       // Nästan ingen metallglans
                 newMaterial.roughness = 0.9;       // En matt yta
 
