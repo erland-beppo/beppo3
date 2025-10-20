@@ -219,7 +219,7 @@ function setupSecondModel() {
             if (child.isMesh) {
                 const newMaterial = child.material.clone();
                 // <<< HÄR ÄR ÄNDRINGEN: Mörkare blå färg >>>
-                const popColor = new THREE.Color(0x005c99); 
+                const popColor = new THREE.Color(0x8c00ff); 
                 
                 newMaterial.color.set(popColor);
                 newMaterial.emissive.set(popColor);
