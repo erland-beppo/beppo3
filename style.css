@@ -1,8 +1,12 @@
+/* <<< HÄR ÄR ÄNDRINGEN: Importerar det nya typsnittet från Google Fonts >>> */
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400&display=swap');
+
 body {
     margin: 0; 
     padding: 0; 
     background-color: #8cffe0; 
-    font-family: 'Courier New', Courier, monospace;
+    /* <<< HÄR ÄR ÄNDRINGEN: Lägger till Martian Mono som primärt typsnitt >>> */
+    font-family: 'Martian Mono', 'Courier New', Courier, monospace;
 }
 
 .page-container {
@@ -64,7 +68,6 @@ h1 {
 .team-section h2 {
     font-size: 1.7em;
     font-weight: 300;
-    /* <<< HÄR ÄR ÄNDRINGEN: Ökar avståndet under rubriken >>> */
     margin-bottom: 50px; 
     text-align: left;
 }
