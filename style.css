@@ -8,7 +8,7 @@ body {
     /* <<< HÄR ÄR ÄNDRINGEN: Lägger till Martian Mono som primärt typsnitt >>> */
     font-family: 'Martian Mono', 'Courier New', Courier, monospace;
     /* <<< NYTT TILLÄGG: Ställer in en lättare standardvikt på texten >>> */
-    font-weight: 300;
+    font-weight: 250;
     /* <<< NYTT TILLÄGG: Minskar den globala textstorleken något >>> */
     font-size: 15px;
 }
