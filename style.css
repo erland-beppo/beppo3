@@ -9,6 +9,8 @@ body {
     font-family: 'Martian Mono', 'Courier New', Courier, monospace;
     /* <<< NYTT TILLÄGG: Ställer in en lättare standardvikt på texten >>> */
     font-weight: 300;
+    /* <<< NYTT TILLÄGG: Minskar den globala textstorleken något >>> */
+    font-size: 15px;
 }
 
 .page-container {
