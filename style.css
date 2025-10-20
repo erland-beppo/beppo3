@@ -7,6 +7,8 @@ body {
     background-color: #8cffe0; 
     /* <<< HÄR ÄR ÄNDRINGEN: Lägger till Martian Mono som primärt typsnitt >>> */
     font-family: 'Martian Mono', 'Courier New', Courier, monospace;
+    /* <<< NYTT TILLÄGG: Ställer in en lättare standardvikt på texten >>> */
+    font-weight: 300;
 }
 
 .page-container {
